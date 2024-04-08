@@ -8,58 +8,53 @@ public class StudentInfo {
     private JTextField StudentID;
     private JTextField DateOfBirth;
     private JTextField SetCGPA;
-    private JButton setNameButton;
-    private JButton setStudentIDButton;
-    private JButton setDateOfBirthButton;
-    private JButton setCGPAButton;
-    private JPanel Student;
+    private JPanel StudentPanel;
     private JButton AddStudent;
-    private String name;
-    private String studentID;
-    private DateOfBirth DOB;
-    private double CGPA;
-    private Student student;
+    private JButton ShowStudents;
+    private JTextField textField1;
+    protected Database students = new Database();
 
     public StudentInfo() {
         AddStudent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == AddStudent) {
-                    name = Name.getText();
+                    CreateStudent createStudent = new CreateStudent(Name.getText(), StudentID.getText(), DateOfBirth.getText(), SetCGPA.getText());
 
-                    studentID = StudentID.getText();
-
-                    String dob = DateOfBirth.getText();
-
-                    StringTokenizer token = new StringTokenizer(dob);
-
-                    int date = Integer.parseInt(token.nextToken("/"));
-                    int month = Integer.parseInt(token.nextToken("/"));
-                    int year = Integer.parseInt(token.nextToken("/"));
-
-                    DOB = new DateOfBirth(year, month, date);
-
-                    CGPA = Double.parseDouble(SetCGPA.getText());
-
-                    student = new Student(name, studentID, DOB, CGPA);
-
-                    JOptionPane.showMessageDialog(null, "Student Added Successfully");
-                    JOptionPane.showMessageDialog(null, student);
+                    students.addStudent(createStudent.newStudent());
                 }
+            }
+        });
+        ShowStudents.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame table = new JFrame();
+
+                table.setVisible(true);
+                table.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                int counter = 0;
+
+                String[] columnNames = {"Name", "StudentID", "DOB", "CGPA"};
+                String[][] data = new String[students.getSize()][];
+
+                while (counter < students.getSize()) {
+                    data[counter] = students.getStudent(counter).studentDetails();
+                    counter++;
+                }
+
+                JTable studentTable = new JTable(data, columnNames);
+                studentTable.setBounds(30, 40, 200, 300);
+
+                table.add(new JScrollPane(studentTable));
+                table.setSize(500, 500);
+
+                students.resetCounter();
             }
         });
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        StudentInfo studentInfo = new StudentInfo();
-
-        frame.setTitle("Student Information");
-        frame.setVisible(true);
-        frame.setSize(500, 400);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(true);
-
-        frame.add(studentInfo.Student);
+    public JPanel getPanel() {
+        return StudentPanel;
     }
 }

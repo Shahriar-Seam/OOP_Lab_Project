@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Test {
     private JTextField textField1;
@@ -20,15 +21,24 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        Test test = new Test();
+//        JFrame frame = new JFrame();
+//        Test test = new Test();
+//
+//        frame.setTitle("bla");
+//        frame.setResizable(true);
+//        frame.setSize(500, 400);
+//        frame.setVisible(true);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//        frame.add(test.jPanel1);
+//
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            list.add(i);
+        }
 
-        frame.setTitle("bla");
-        frame.setResizable(true);
-        frame.setSize(500, 400);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        list.set(0, 20);
 
-        frame.add(test.jPanel1);
+        System.out.println(list);
     }
 }
