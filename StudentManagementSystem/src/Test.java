@@ -21,17 +21,17 @@ public class Test {
     }
 
     public static void main(String[] args) {
-//        JFrame frame = new JFrame();
-//        Test test = new Test();
-//
-//        frame.setTitle("bla");
-//        frame.setResizable(true);
-//        frame.setSize(500, 400);
-//        frame.setVisible(true);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//        frame.add(test.jPanel1);
-//
+        JFrame frame = new JFrame();
+        Test test = new Test();
+
+        frame.setTitle("bla");
+        frame.setResizable(true);
+        frame.setSize(500, 400);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.add(test.jPanel1);
+
         ArrayList<Integer> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             list.add(i);

@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.StringTokenizer;
 
 public class StudentInfo {
     private JTextField Name;
@@ -11,8 +10,11 @@ public class StudentInfo {
     private JPanel StudentPanel;
     private JButton AddStudent;
     private JButton ShowStudents;
-    private JTextField textField1;
+    private JButton Edit;
+    private JLabel uniqueID;
+    private JButton Update;
     protected Database students = new Database();
+    private static int UniqueID = 0;
 
     public StudentInfo() {
         AddStudent.addActionListener(new ActionListener() {
@@ -21,7 +23,24 @@ public class StudentInfo {
                 if (e.getSource() == AddStudent) {
                     CreateStudent createStudent = new CreateStudent(Name.getText(), StudentID.getText(), DateOfBirth.getText(), SetCGPA.getText());
 
-                    students.addStudent(createStudent.newStudent());
+                    Student newStudent = createStudent.newStudent();
+                    newStudent.setUniqueID(UniqueID);
+
+                    int present = students.getUniqueID(StudentID.getText());
+
+                    if (present == -1) {
+
+                        students.addStudent(createStudent.newStudent());
+
+                        uniqueID.setText("" + UniqueID);
+
+                        UniqueID++;
+
+                        JOptionPane.showMessageDialog(StudentPanel, "Student Added Successfully");
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(StudentPanel, "Student Already Exists");
+                    }
                 }
             }
         });
@@ -50,6 +69,57 @@ public class StudentInfo {
                 table.setSize(500, 500);
 
                 students.resetCounter();
+            }
+        });
+        Edit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == Edit) {
+                    String studentID = JOptionPane.showInputDialog("Enter Student ID");
+
+                    int UID = students.getUniqueID(studentID);
+
+                    if (UID != -1) {
+
+                        Student tempStudent = students.getStudent(UID);
+
+                        Name.setText(tempStudent.getName());
+                        StudentID.setText(tempStudent.getStudentID());
+                        DateOfBirth.setText(tempStudent.getDOB().toString());
+                        SetCGPA.setText(tempStudent.getCGPA() + "");
+                        uniqueID.setText(UID + "");
+
+                        Update.setVisible(true);
+
+                        Update.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                if (e.getSource() == Update) {
+                                    String studentID = StudentID.getText();
+                                    String studentName = Name.getText();
+                                    String dateOfBirth = DateOfBirth.getText();
+                                    String cGPA = SetCGPA.getText();
+
+                                    int index = students.getIndexOfStudent(UID);
+
+                                    if (index != -1) {
+                                        CreateStudent newStudent = new CreateStudent(studentName, studentID, dateOfBirth, cGPA);
+
+                                        students.updateStudent(index, newStudent.newStudent());
+
+                                        JOptionPane.showMessageDialog(null, "Student Updated");
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Student does not exist");
+                                    }
+                                }
+
+                                Update.setVisible(false);
+                            }
+                        });
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Student does not exist");
+                    }
+                }
             }
         });
     }

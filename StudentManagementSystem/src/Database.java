@@ -31,15 +31,21 @@ public class Database implements Comparator <Student> {
         return null;
     }
 
-    public int getIndexOfStudent(Student student) {
-        resetCounter();
-
-        while (counter < students.size()) {
-            if (students.get(counter).getStudentID().equals(student.getStudentID())) {
-                return counter;
+    public int getIndexOfStudent(int UID) {
+        for (int count = 0; count < students.size(); count++) {
+            if (students.get(count).getUniqueID() == UID) {
+                return count;
             }
+        }
 
-            counter++;
+        return -1;
+    }
+
+    public int getUniqueID(String studentID) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getStudentID().equals(studentID)) {
+                return students.get(i).getUniqueID();
+            }
         }
 
         return -1;
