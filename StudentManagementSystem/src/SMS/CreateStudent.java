@@ -1,3 +1,5 @@
+package SMS;
+
 import java.util.StringTokenizer;
 
 public class CreateStudent {

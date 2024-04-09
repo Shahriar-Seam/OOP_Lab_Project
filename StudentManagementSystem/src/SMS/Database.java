@@ -1,12 +1,16 @@
+package SMS;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Database implements Comparator <Student> {
-    private ArrayList <Student> students = new ArrayList<>();
-    private int counter = 0;
+public class Database implements Comparator <Student>, Serializable {
+    private ArrayList <Student> students = null;
+    public int counter = 0;
     private static int uniqueID = 0;
 
     public Database() {
+        students = IO.Read(counter);
     }
 
     public int getCounter() {
@@ -91,5 +95,9 @@ public class Database implements Comparator <Student> {
 
     public void sortStudents() {
         students.sort(new Database());
+    }
+
+    public ArrayList<Student> getStudents() {
+        return students;
     }
 }

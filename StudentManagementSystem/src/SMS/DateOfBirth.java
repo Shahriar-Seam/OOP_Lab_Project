@@ -1,4 +1,8 @@
-public class DateOfBirth {
+package SMS;
+
+import java.io.Serializable;
+
+public class DateOfBirth implements Serializable {
     private int year;
     private int month;
     private int date;

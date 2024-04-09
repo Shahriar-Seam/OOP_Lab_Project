@@ -1,3 +1,5 @@
+package SMS;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +15,7 @@ public class StudentInfo {
     private JButton Edit;
     private JLabel uniqueID;
     private JButton Update;
+    private JButton Save;
     protected Database students = new Database();
     private static int UniqueID = 0;
 
@@ -119,6 +122,14 @@ public class StudentInfo {
                     else {
                         JOptionPane.showMessageDialog(null, "Student does not exist");
                     }
+                }
+            }
+        });
+        Save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == Save) {
+                    IO.Write(students.getStudents());
                 }
             }
         });

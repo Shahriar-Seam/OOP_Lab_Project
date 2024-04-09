@@ -1,15 +1,20 @@
-public class Student {
+package SMS;
+
+import java.io.Serializable;
+
+public class Student implements Serializable {
     private String name;
     private String studentID;
     private DateOfBirth DOB;
     private double CGPA;
-    private int uniqueID = 0;
+    private int uniqueID;
 
     public Student(String name, String studentID, DateOfBirth DOB, double CGPA) {
         this.name = name;
         this.studentID = studentID;
         this.DOB = DOB;
         this.CGPA = CGPA;
+        this.uniqueID = 101;
     }
 
     public String getName() {
