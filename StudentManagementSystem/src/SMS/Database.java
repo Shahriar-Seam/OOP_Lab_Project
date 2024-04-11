@@ -1,103 +1,81 @@
 package SMS;
 
-import java.io.*;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Comparator;
 
-public class Database implements Comparator <Student>, Serializable {
-    private ArrayList <Student> students = null;
-    public int counter = 0;
-    private static int uniqueID = 0;
+public class Database implements Serializable {
+    ArrayList<Student> students;
 
     public Database() {
-        students = IO.Read(counter);
+        students = new ArrayList<>();
     }
 
-    public int getCounter() {
-        return counter;
+    public ArrayList<Student> getStudents() {
+        return students;
     }
 
-    public void resetCounter() {
-        this.counter = 0;
-    }
-
-    public Student getStudent(int index) {
-        return students.get(index);
-    }
-
-    public Student getStudentByUniqueID(Student student) {
-        for (Student s : students) {
-            if (s.getUniqueID() == student.getUniqueID()) {
-                return student;
-            }
-        }
-
-        return null;
-    }
-
-    public int getIndexOfStudent(int UID) {
-        for (int count = 0; count < students.size(); count++) {
-            if (students.get(count).getUniqueID() == UID) {
-                return count;
-            }
-        }
-
-        return -1;
-    }
-
-    public int getUniqueID(String studentID) {
-        for (int i = 0; i < students.size(); i++) {
-            if (students.get(i).getStudentID().equals(studentID)) {
-                return students.get(i).getUniqueID();
-            }
-        }
-
-        return -1;
+    public void setStudents(ArrayList<Student> students) {
+        this.students = students;
     }
 
     public void addStudent(Student student) {
-        student.setUniqueID(uniqueID++);
-
         students.add(student);
     }
 
     public void removeStudent(Student student) {
-        uniqueID--;
-
         students.remove(student);
-    }
-
-    public void removeStudent(int index) {
-        uniqueID--;
-
-        students.remove(index);
-    }
-
-    public int getSize() {
-        return students.size();
     }
 
     public void updateStudent(int index, Student student) {
         students.set(index, student);
     }
 
-    public int compare(Student s1, Student s2) {
-        if (s1.getCGPA() > s2.getCGPA()) {
-            return 1;
-        }
-        else if (s1.getCGPA() < s2.getCGPA()) {
-            return -1;
-        }
-        else {
-            return 0;
-        }
+    public Student getStudent(int index) {
+        return students.get(index);
+    }
+
+    public int getIndexOfStudent(Student student) {
+        return students.indexOf(student);
+    }
+
+    public boolean containsStudent(Student student) {
+        return students.contains(student);
+    }
+
+    public int numberOfStudents() {
+        return students.size();
     }
 
     public void sortStudents() {
-        students.sort(new Database());
+        students.sort(Student::compareTo);
     }
 
-    public ArrayList<Student> getStudents() {
-        return students;
+    public boolean isEmpty() {
+        return students.isEmpty();
+    }
+
+    public void clear() {
+        students.clear();
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+
+        for (Student student : students) {
+            sb.append(student);
+        }
+
+        return sb.toString();
+    }
+
+    public String[][] dataForTable() {
+        String[][] data = new String[students.size()][6];
+
+        for (int i = 0; i < students.size(); i++) {
+            data[i] = students.get(i).getDetails();
+        }
+
+        return data;
     }
 }

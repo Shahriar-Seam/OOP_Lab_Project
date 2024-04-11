@@ -1,48 +1,48 @@
 package SMS;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 
 public class IO {
-    private static String filename = "../OOP_Lab_Project/StudentManagementSystem/src/SMS/StudentData.ser";
-    private static ArrayList<Student> students;
+    private static String filename = "Assets/Database.ser";
 
-    public static ArrayList <Student> Read(int counter) {
+    public static void writeToFile(Database database) {
         try {
-            FileInputStream fin = new FileInputStream(filename);
-            ObjectInputStream in = new ObjectInputStream(fin);
+            FileOutputStream fos = new FileOutputStream(filename);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-            students = (ArrayList <Student>) in.readObject();
+            oos.writeObject(database);
 
-            fin.close();
-            in.close();
-
-            for (Student s : students) {
-                s.setUniqueID(counter++);
-            }
+            oos.close();
+            fos.close();
         }
         catch (IOException e) {
-            System.out.println("IOException in Database");
+            JOptionPane.showMessageDialog(null, "Could not write to file");
         }
-        catch (ClassNotFoundException e) {
-            System.out.println("ClassNotFoundException in Database");
-        }
-
-        return students;
     }
 
-    public static void Write(ArrayList<Student> students) {
+    public static Database readFromFile() {
         try {
-            FileOutputStream fout = new FileOutputStream(filename);
-            ObjectOutputStream out = new ObjectOutputStream(fout);
+            FileInputStream fis = new FileInputStream(filename);
+            ObjectInputStream ois = new ObjectInputStream(fis);
 
-            out.writeObject(students);
+            Database database = (Database) ois.readObject();
 
-            fout.close();
-            out.close();
+            ois.close();
+            fis.close();
+
+            return database;
         }
         catch (IOException e) {
-            System.out.println("IOException in Database");
+            JOptionPane.showMessageDialog(null, "Could not read from file");
+
+            return null;
+        }
+        catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Class not found");
+
+            return null;
         }
     }
 }
