@@ -126,7 +126,10 @@ public class StudentInfo extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == FirstButton) {
                     counter = 0;
-                    populateInfoTable(database.getStudent(counter), counter + 1);
+
+                    if (database.isEmpty() == false) {
+                        populateInfoTable(database.getStudent(counter), counter + 1);
+                    }
                 }
             }
         });
@@ -135,7 +138,9 @@ public class StudentInfo extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == LastButton) {
                     counter = database.numberOfStudents() - 1;
-                    populateInfoTable(database.getStudent(counter), counter + 1);
+                    if (database.isEmpty() == false) {
+                        populateInfoTable(database.getStudent(counter), counter + 1);
+                    }
                 }
             }
         });
@@ -147,7 +152,9 @@ public class StudentInfo extends JFrame {
                         counter--;
                     }
 
-                    populateInfoTable(database.getStudent(counter), counter + 1);
+                    if (database.isEmpty() == false) {
+                        populateInfoTable(database.getStudent(counter), counter + 1);
+                    }
                 }
             }
         });
@@ -159,7 +166,9 @@ public class StudentInfo extends JFrame {
                         counter++;
                     }
 
-                    populateInfoTable(database.getStudent(counter), counter + 1);
+                    if (database.isEmpty() == false) {
+                        populateInfoTable(database.getStudent(counter), counter + 1);
+                    }
                 }
             }
         });
@@ -224,13 +233,16 @@ public class StudentInfo extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == Sort) {
-                    database.sortStudents();
+                    if (database.isEmpty() == false) {
 
-                    populateInfoTable(database.getStudent(counter), counter + 1);
+                        database.sortStudents();
 
-                    JOptionPane.showMessageDialog(StudentInfo.this, "Students have been sorted");
+                        populateInfoTable(database.getStudent(counter), counter + 1);
 
-                    IO.writeToFile(database);
+                        JOptionPane.showMessageDialog(StudentInfo.this, "Students have been sorted");
+
+                        IO.writeToFile(database);
+                    }
                 }
             }
         });
