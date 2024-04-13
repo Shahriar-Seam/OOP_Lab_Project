@@ -38,10 +38,10 @@ public class Student extends Person implements Serializable, Comparable <Person>
     public int compareTo(Person person) {
         Student student = (Student) person;
 
-        if (this.CGPA > student.CGPA) {
+        if (this.CGPA < student.CGPA) {
             return 1;
         }
-        else if (this.CGPA < student.CGPA) {
+        else if (this.CGPA > student.CGPA) {
             return -1;
         }
         else {

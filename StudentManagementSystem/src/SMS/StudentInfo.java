@@ -226,7 +226,11 @@ public class StudentInfo extends JFrame {
                 if (e.getSource() == Sort) {
                     database.sortStudents();
 
+                    populateInfoTable(database.getStudent(counter), counter + 1);
+
                     JOptionPane.showMessageDialog(StudentInfo.this, "Students have been sorted");
+
+                    IO.writeToFile(database);
                 }
             }
         });
@@ -236,8 +240,14 @@ public class StudentInfo extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == ClearDatabase) {
                     database.clear();
+                    clearInfoTable();
 
                     JOptionPane.showMessageDialog(StudentInfo.this, "Database has been cleared");
+
+                    IO.writeToFile(database);
+
+                    counter = 0;
+                    numberOfStudents = 0;
                 }
             }
         });
