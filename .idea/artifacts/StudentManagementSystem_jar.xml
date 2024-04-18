@@ -3,6 +3,9 @@
     <output-path>$PROJECT_DIR$/out/artifacts/StudentManagementSystem_jar</output-path>
     <root id="archive" name="StudentManagementSystem.jar">
       <element id="module-output" name="StudentManagementSystem" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/StudentManagementSystem/src/SMS/manifest.mf" />
+      </element>
     </root>
   </artifact>
 </component>

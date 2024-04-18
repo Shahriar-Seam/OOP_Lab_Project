@@ -39,7 +39,13 @@ public class Database implements Serializable {
     }
 
     public boolean containsStudent(Student student) {
-        return students.contains(student);
+        for (Student s : students) {
+            if (s.equals(student)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public int numberOfStudents() {
