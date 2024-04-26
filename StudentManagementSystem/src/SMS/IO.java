@@ -2,7 +2,6 @@ package SMS;
 
 import javax.swing.*;
 import java.io.*;
-import java.util.ArrayList;
 
 public class IO {
     private static String filename = "Assets/Database.ser";

@@ -10,14 +10,6 @@ public class Database implements Serializable {
         students = new ArrayList<>();
     }
 
-    public ArrayList<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(ArrayList<Student> students) {
-        this.students = students;
-    }
-
     public void addStudent(Student student) {
         students.add(student);
     }
@@ -32,10 +24,6 @@ public class Database implements Serializable {
 
     public Student getStudent(int index) {
         return students.get(index);
-    }
-
-    public int getIndexOfStudent(Student student) {
-        return students.indexOf(student);
     }
 
     public boolean containsStudent(Student student) {

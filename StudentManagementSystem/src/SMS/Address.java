@@ -20,30 +20,6 @@ public class Address implements Serializable {
         this.District = str[2];
     }
 
-    public String getStreet() {
-        return Street;
-    }
-
-    public void setStreet(String street) {
-        Street = street;
-    }
-
-    public String getPostOffice() {
-        return PostOffice;
-    }
-
-    public void setPostOffice(String postOffice) {
-        PostOffice = postOffice;
-    }
-
-    public String getDistrict() {
-        return District;
-    }
-
-    public void setDistrict(String district) {
-        District = district;
-    }
-
     public String toString() {
         return Street + ", " + PostOffice + ", " + District;
     }

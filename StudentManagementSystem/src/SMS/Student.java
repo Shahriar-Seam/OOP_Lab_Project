@@ -4,11 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Student extends Person implements Serializable, Comparable <Person> {
-    private String Name;
-    private int Age;
     private String StudentID;
-    private Address address;
-    private DateOfBirth dateOfBirth;
     private double CGPA;
 
     public Student(String Name, String StudentID, Address address, DateOfBirth dateOfBirth, double CGPA) {
@@ -22,16 +18,8 @@ public class Student extends Person implements Serializable, Comparable <Person>
         return StudentID;
     }
 
-    public void setStudentID(String studentID) {
-        StudentID = studentID;
-    }
-
     public double getCGPA() {
         return CGPA;
-    }
-
-    public void setCGPA(double CGPA) {
-        this.CGPA = CGPA;
     }
 
     @Override
@@ -61,11 +49,6 @@ public class Student extends Person implements Serializable, Comparable <Person>
         else {
             return Age == student.Age && Double.compare(CGPA, student.CGPA) == 0 && Objects.equals(Name, student.Name) && Objects.equals(StudentID, student.StudentID) && Objects.equals(address, student.address) && Objects.equals(dateOfBirth, student.dateOfBirth);
         }
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(Name, Age, StudentID, address, dateOfBirth, CGPA);
     }
 
     public String[] getDetails() {

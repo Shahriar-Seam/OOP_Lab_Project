@@ -1,10 +1,8 @@
 package SMS;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collections;
 
 public class StudentInfo extends JFrame {
     private JPanel BasePanel;
@@ -38,15 +36,15 @@ public class StudentInfo extends JFrame {
     private JMenuItem About;
     private JMenuItem Exit;
     private Database database;
-    int counter = 0;
-    int numberOfStudents = 0;
+    private int counter = 0;
+    private int numberOfStudents = 0;
 
     public StudentInfo() {
         initWindow();
 
         database = IO.readFromFile();
 
-        if (database.isEmpty() == false) {
+        if (database != null && database.isEmpty() == false) {
             numberOfStudents = database.numberOfStudents();
 
             populateInfoTable(database.getStudent(counter), counter + 1);
@@ -224,7 +222,7 @@ public class StudentInfo extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         this.setResizable(true);
-        this.setSize(500, 700);
+        this.setSize(500, 500);
         this.add(BasePanel);
         ImageIcon image = new ImageIcon("Assets/ghost.png");
         this.setIconImage(image.getImage());
